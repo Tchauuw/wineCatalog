@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import Review from "./Review";
 import ReviewList from "./ReviewList";
@@ -13,10 +13,10 @@ const Layout = props => {
         <div>
             <ul>
                 <li>
-                    <a href="/">Home</a>
+                    <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <a href="/view">Random</a>
+                    <Link to="/view">Random</Link>
                 </li>
                 <li>
                     <a href="/">Login</a>
