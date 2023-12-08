@@ -1,6 +1,20 @@
+import { Link, useParams } from "react-router-dom";
 import db from "../api/db.json";
 
 const ReviewList = props => {
+
+    const dbReviews = db.reviews;
+    
+    const listWine = dbReviews.map((dbReview) => 
+        <div col="1/2">
+            <card>
+                <Link to={`/view/${dbReview.slug}`}>
+                    <h5>{dbReview.title}</h5>
+                    <p>{dbReview.points} / 100</p>
+                </Link>
+            </card>
+        </div>
+    );
 
     return <section data-name="review-list">
         <div className="hidden">
@@ -14,22 +28,7 @@ const ReviewList = props => {
             </p>
         </div>
         <grid>
-            <div col="1/2">
-                <card>
-                    <a href="/">
-                        <h5>{db.reviews[0].title}</h5>
-                        <p>{db.reviews[0].points} / 100</p>
-                    </a>
-                </card>
-            </div>
-            <div col="1/2">
-                <card>
-                    <a href="/">
-                        <h5>{db.reviews[1].title}</h5>
-                        <p>{db.reviews[1].points} / 100</p>
-                    </a>
-                </card>
-            </div>
+            <div>{listWine}</div>
             <div col="1/1" txt="c" className="hidden">
                 <card>
                     <a href="/"><h5>Add a review</h5></a>

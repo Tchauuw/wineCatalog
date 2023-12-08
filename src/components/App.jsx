@@ -10,9 +10,9 @@ const App = () => {
     return<BrowserRouter>
         <Layout>
         <Routes>
-            <Route path="view" element={<Review />} />
             <Route index="true" element={<ReviewList />} />
             <Route path="*" element={<NotFound />} />
+            <Route path="view/:slug" element={<Review />} />
         </Routes>
         </Layout>
     </BrowserRouter>

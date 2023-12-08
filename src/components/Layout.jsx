@@ -16,7 +16,7 @@ const Layout = props => {
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/view">Random</Link>
+                    <Link to="/view/random">Random</Link>
                 </li>
                 <li>
                     <a href="/">Login</a>

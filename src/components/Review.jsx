@@ -1,17 +1,25 @@
+import { useParams } from "react-router-dom"
+import db from "../api/db.json";
+
 const Review = () => {
 
+    const params = useParams()
+    const review = params.slug === 'random' ? db.reviews[Math.floor(Math.random()*(db.reviews.length-1))] : db.reviews.find((review) => {
+        return review.slug === params.slug
+    })
+    console.log();
+
     return<section data-name="review">
-        <h2>Nouveau</h2>
-        <h3>Henry Fessy 2012 Nouveau  (Beaujolais)</h3>
+        <h2>{review?.title}</h2>
         <p>
-            Price : <b>9 $</b>
+            Price : <b>{review?.price} $</b>
         </p>
         <blockquote>
             <p>
-                This is a festive wine, with soft, ripe fruit and acidity, plus a red berry flavor.
+                {review?.description}
             </p>
             <p txt="r">
-                <i>- Roger Voss</i>
+                <i>- {review?.taster_name}</i>
             </p>
         </blockquote>
     </section>
