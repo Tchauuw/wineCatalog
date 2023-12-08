@@ -1,3 +1,4 @@
+import { Route, Routes } from 'react-router-dom';
 import logo from '../assets/logo.png'
 import Review from "./Review";
 import ReviewList from "./ReviewList";
@@ -15,7 +16,7 @@ const Layout = props => {
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="/">Random</a>
+                    <a href="/view">Random</a>
                 </li>
                 <li>
                     <a href="/">Login</a>
@@ -24,8 +25,7 @@ const Layout = props => {
         </div>
     </nav>
     <main>
-        <Review />
-        <ReviewList />
+        {props.children}
     </main>
     <footer>
         <p>La Rochelle Université</p>
