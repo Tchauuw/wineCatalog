@@ -1,27 +1,40 @@
-import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+// import { useState } from "react";
 import db from "../api/db.json";
 const { reviews, categories } = db;
 
 const ReviewList = props => {
-    const [state, setState] = useState('')
+
+    const params = useParams();
+    
+    const category = params.category || ''
+
+    const navigate = useNavigate()
 
     const filters = categories.map((categorie) =>
     <option value={categorie.key}>{categorie.label}</option>
     );
+
+    const handleChange = (e) => {
+        navigate(`/${e.target.value}`)
+    }
+
     
     return <section data-name="review-list">
         <div className="">
             <h4>Categories</h4>
             <p>
-                <select onChange={(e) => setState(e.target.value)}>
+                <select 
+                    onChange={handleChange}
+                    value={category}
+                >
                     <option value="">All</option>
                     {filters}
                 </select>
             </p>
         </div>
         <grid>
-            <div>{reviews.filter((dbReview) => state === '' || dbReview.category === state).map((wine) =>
+            <div>{reviews.filter((dbReview) => category === '' || dbReview.category === category).map((wine) =>
                     <div col="1/2">
                         <card>
                             <Link to={`/view/${wine.slug}`}>

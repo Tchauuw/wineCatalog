@@ -6,12 +6,15 @@ import NotFound from './NotFound'
 
 const App = () => {
 
+    
+
     return<BrowserRouter>
         <Layout>
         <Routes>
             <Route index="true" element={<ReviewList />} />
             <Route path="*" element={<NotFound />} />
             <Route path="view/:slug" element={<Review />} />
+            <Route path="/:category" element={<ReviewList />} />
         </Routes>
         </Layout>
     </BrowserRouter>
