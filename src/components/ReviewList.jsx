@@ -1,34 +1,36 @@
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import db from "../api/db.json";
+const { reviews, categories } = db;
 
 const ReviewList = props => {
+    const [state, setState] = useState('')
 
-    const dbReviews = db.reviews;
-    
-    const listWine = dbReviews.map((dbReview) => 
-        <div col="1/2">
-            <card>
-                <Link to={`/view/${dbReview.slug}`}>
-                    <h5>{dbReview.title}</h5>
-                    <p>{dbReview.points} / 100</p>
-                </Link>
-            </card>
-        </div>
+    const filters = categories.map((categorie) =>
+    <option value={categorie.key}>{categorie.label}</option>
     );
-
+    
     return <section data-name="review-list">
-        <div className="hidden">
+        <div className="">
             <h4>Categories</h4>
             <p>
-                <select>
+                <select onChange={(e) => setState(e.target.value)}>
                     <option value="">All</option>
-                    <option value="bordeaux">Bordeaux</option>
-                    <option value="cotes-du-rhone">Côtes du Rhone</option>
+                    {filters}
                 </select>
             </p>
         </div>
         <grid>
-            <div>{listWine}</div>
+            <div>{reviews.filter((dbReview) => state === '' || dbReview.category === state).map((wine) =>
+                    <div col="1/2">
+                        <card>
+                            <Link to={`/view/${wine.slug}`}>
+                                <h5>{wine.title}</h5>
+                                <p>{wine.points} / 100</p>
+                            </Link>
+                        </card>
+                    </div>
+                )}</div>
             <div col="1/1" txt="c" className="hidden">
                 <card>
                     <a href="/"><h5>Add a review</h5></a>

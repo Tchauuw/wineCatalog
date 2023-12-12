@@ -7,7 +7,6 @@ const Review = () => {
     const review = params.slug === 'random' ? db.reviews[Math.floor(Math.random()*(db.reviews.length-1))] : db.reviews.find((review) => {
         return review.slug === params.slug
     })
-    console.log();
 
     return<section data-name="review">
         <h2>{review?.title}</h2>
