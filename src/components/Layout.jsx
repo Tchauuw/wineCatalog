@@ -1,9 +1,10 @@
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'
-import Review from "./Review";
-import ReviewList from "./ReviewList";
+import { Login } from './Auth';
 
 const Layout = props => {
+
+    const { user, onLogout } = props;
 
     return <>
     <nav fx="">
@@ -19,13 +20,17 @@ const Layout = props => {
                     <Link to="/view/random">Random</Link>
                 </li>
                 <li>
-                    <a href="/">Login</a>
+                {user.isLoggedIn ? (
+                    <Link to="/logout" onClick={onLogout}>Logout</Link>
+                    ) : (
+                    <Link to="/login">Login</Link>
+                )}
                 </li>
             </ul>
         </div>
     </nav>
     <main>
-        {props.children}
+        { user.isLoggedIn ? props.children : <Login onLogin={props.onLogin} />}
     </main>
     <footer>
         <p>La Rochelle Université</p>

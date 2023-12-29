@@ -3,6 +3,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import db from "../api/db.json";
 const { reviews, categories } = db;
 
+const getFilters = () => {
+    const filters = categories.map((categorie) => (
+      <option value={categorie.key}>{categorie.label}</option>
+    ));
+    return filters;
+};
+
 const ReviewList = props => {
 
     const params = useParams();
@@ -10,10 +17,6 @@ const ReviewList = props => {
     const category = params.category || ''
 
     const navigate = useNavigate()
-
-    const filters = categories.map((categorie) =>
-    <option value={categorie.key}>{categorie.label}</option>
-    );
 
     const handleChange = (e) => {
         navigate(`/${e.target.value}`)
@@ -29,7 +32,7 @@ const ReviewList = props => {
                     value={category}
                 >
                     <option value="">All</option>
-                    {filters}
+                    {getFilters()}
                 </select>
             </p>
         </div>
@@ -53,4 +56,5 @@ const ReviewList = props => {
     </section>
 }
 
+export { getFilters };
 export default ReviewList
