@@ -47,9 +47,9 @@ const ReviewList = props => {
                         </card>
                     </div>
                 )}</div>
-            <div col="1/1" txt="c" className="hidden">
+            <div col="1/1" txt="c" className="">
                 <card>
-                    <a href="/"><h5>Add a review</h5></a>
+                    <Link to="/add"><h5>Add a review</h5></Link>
                 </card>
             </div>
         </grid>

@@ -1,11 +1,11 @@
 import Review from './Review'
 import ReviewList from './ReviewList'
 import Layout from './Layout'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import NotFound from './NotFound'
-import AddReview from './AddReview'
 import { Login, Logout } from './Auth'
 import { useState } from 'react'
+import AddReview from './AddReview'
 
 const App = () => {
 
@@ -28,18 +28,20 @@ const App = () => {
         });
       };
 
-    return<BrowserRouter>
+      
+      return<BrowserRouter>
         <Layout user={user} onLogout={handleLogout} onLogin={handleLogin}>
             <Routes>
                 <Route index="true" element={<ReviewList />} />
                 <Route path="*" element={<NotFound />} />
                 <Route path="view/:slug" element={<Review />} />
                 <Route path="/:category" element={<ReviewList />} />
-                <Route path="/add" element={<AddReview />} />
-                <Route path="/login" element={<Login onLogin={handleLogin} />} />
-                <Route path="/logout" element={<Logout />} />
+                <Route path="/add" element={<AddReview user={user} />} />
+                <Route path="/login" element={<Login user={user} onLogin={handleLogin} />} />
+                <Route path="/logout" element={<Logout user={user} />} />
             </Routes>
         </Layout>
+        {!user && <Navigate to={{ pathname: '/login' }} state={{ from: '/protected' }}/>}
     </BrowserRouter>
 }
 

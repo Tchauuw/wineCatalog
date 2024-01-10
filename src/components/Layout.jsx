@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png'
-import { Login } from './Auth';
 
 const Layout = props => {
 
-    const { user, onLogout } = props;
+    const { user, onLogout, onLogin } = props;
 
     return <>
     <nav fx="">
         <header>
-            <a href="/"><img src={logo} alt="React-Wines logo" /></a>
+            <Link to="/"><img src={logo} alt="React-Wines logo" /></Link>
         </header>
         <div>
             <ul>
@@ -23,14 +22,14 @@ const Layout = props => {
                 {user.isLoggedIn ? (
                     <Link to="/logout" onClick={onLogout}>Logout</Link>
                     ) : (
-                    <Link to="/login">Login</Link>
+                    <Link to="/login" onClick={onLogin}>Login</Link>
                 )}
                 </li>
             </ul>
         </div>
     </nav>
     <main>
-        { user.isLoggedIn ? props.children : <Login onLogin={props.onLogin} />}
+        { props.children }
     </main>
     <footer>
         <p>La Rochelle Université</p>

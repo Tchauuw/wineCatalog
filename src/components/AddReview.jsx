@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { getFilters } from "./ReviewList";
+import { Navigate } from "react-router-dom";
 
 const AddReview = (props) => {
+
+    const {user} = props;
 
     const [author, setAuthor] = useState('');
     const [title, setTitle] = useState('');
@@ -9,6 +12,18 @@ const AddReview = (props) => {
     const [category, setCategory] = useState('');
     const [price, setPrice] = useState('');
     const [review, setReview] = useState('');
+
+    if (!user.isLoggedIn) {
+        // return <Navigate to="/login" />;
+        return (
+        <Navigate 
+            to={{ pathname: '/login' }}
+            state={{ from: '/add' }}
+            replace
+        />
+        );
+    }
+    
 
     const handleAuthor = event =>{
         setAuthor(event.target.value);

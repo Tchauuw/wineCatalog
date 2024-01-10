@@ -1,61 +1,83 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Login = props => {
+const Login = (props) => {
 
-    const[login, setLogin] = useState('');
-    const[password, setPassword] = useState('');
-    
-    const handleLogin = event => {
-        setLogin(event.target.value);
-    }
+    const {
+      onLogin
+    } = props;
 
-    const handlePassword = event => {
-        setPassword(event.target.value);
-    }
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+  
+    const handleLogin = (event) => {
+      setLogin(event.target.value);
+      onLogin();
+    };
+  
+    const handlePassword = (event) => {
+      setPassword(event.target.value);
+    };
 
-    const handleSubmit = event => {
-        event.preventDefault();
-
+    const location = useLocation();
+  
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      if (login !== "" && password !== "") {
         props.onLogin({
-            login,
-            password
-        })
-    }
+          login,
+          password,
+        });
+      }
+      
+      { location.state && navigate(location.state.from); }
+  
+    };
 
-    return<form onSubmit={handleSubmit}>
+    
+    return (
+      <form onSubmit={handleSubmit}>
         <section data-name="adding">
-            <input 
-                type="text" 
-                placeholder="Login"
-                value={login}
-                onChange={handleLogin}
-            />
-            <input 
-                type="password" 
-                placeholder="Password"
-                value={password}
-                onChange={handlePassword}
-            />
-            <button 
-                type="submit" 
-            >Login</button>
+          <input
+            type="text"
+            placeholder="Login"
+            value={login}
+            onChange={handleLogin}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={handlePassword}
+          />
+          <button type="submit">Login</button>
         </section>
-    </form>
-}
+      </form>
+    );
+  };
+  
 
 const Logout = props => {
 
-    const handleLogout = () => {
-        if(props.onLogout){
-            props.onLogout();
-        }
-    }
+  const navigate = useNavigate();
 
-    return<div>
-        <h2>Logout</h2>
-        <p>Êtes-vous sûr de vouloir vous déconnecter?</p>
-    <button onClick={handleLogout}>Se déconnecter</button>
+  const handleLogout = () => {
+      if (props.onLogout) {
+          props.onLogout();
+      }
+        
+      navigate("/");
+  }
+
+  return (
+    <div>
+      <h2>Logout</h2>
+      <p>Êtes-vous sûr de vouloir vous déconnecter?</p>
+      <button type="button" onClick={handleLogout}>Se déconnecter</button>
     </div>
+  );
 }
 
 export {Login, Logout};
