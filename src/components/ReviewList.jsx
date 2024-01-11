@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 // import { useState } from "react";
 import db from "../api/db.json";
 const { reviews, categories } = db;
@@ -21,9 +21,10 @@ const ReviewList = props => {
     const handleChange = (e) => {
         navigate(`/${e.target.value}`)
     }
-
     
     return <section data-name="review-list">
+                        { props.children }
+                <Outlet />
         <div className="">
             <h4>Categories</h4>
             <p>
@@ -40,7 +41,7 @@ const ReviewList = props => {
             <div>{reviews.filter((dbReview) => category === '' || dbReview.category === category).map((wine) =>
                     <div col="1/2">
                         <card>
-                            <Link to={`/view/${wine.slug}`}>
+                            <Link to={`./view/${wine.slug}`}>
                                 <h5>{wine.title}</h5>
                                 <p>{wine.points} / 100</p>
                             </Link>
